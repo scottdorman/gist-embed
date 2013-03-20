@@ -1,8 +1,7 @@
 //author: Blair Vanderhoof
 //https://github.com/blairvanderhoof/gist-embed
 $(function(){
-  var gistMarkerId = 'gist-',
-    _guidIdCounter = 0;
+  var gistMarkerId = 'gist-';
 
   //find all code elements containing "gist-" the id attribute.
   $('code[data-gist-id*="'+gistMarkerId+'"], code[id*="'+gistMarkerId+'"]').each(function(){
@@ -11,6 +10,8 @@ $(function(){
       url,
       file,
       line,
+      hideFooterOption,
+      hideLineNumbersOption,
       data = {};
 
     //make block level so loading text shows properly
@@ -18,6 +19,8 @@ $(function(){
 
     id = $elem.attr('data-gist-id') || $elem.attr('id') || '';
     file = $elem.attr('data-file');
+    hideFooterOption = $elem.attr('data-hide-footer') === "true";
+    hideLineNumbersOption = $elem.attr('data-hide-line-numbers') === "true";
     line = $elem.attr('data-line') || '';
     line = line.replace(/ /g, '');
 
@@ -69,6 +72,7 @@ $(function(){
 
           //refernce to div
           $responseDiv = $(response.div);
+
           //remove id for uniqueness constraints
           $responseDiv.removeAttr('id');
 
@@ -94,12 +98,12 @@ $(function(){
           }
 
           //option to remove footer
-          if($elem.attr('data-hide-footer') === "true"){
+          if(hideFooterOption){
             $responseDiv.find('.gist-meta').remove();
           }
 
           //option to remove 
-          if($elem.attr('data-hide-line-numbers') === "true"){
+          if(hideLineNumbersOption){
             $responseDiv.find('.line-numbers').remove();
           }
 
