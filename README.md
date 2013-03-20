@@ -19,9 +19,9 @@
 See example.html for all possible ways to use gist-embed:
 * Including a single gist
 * Including individual files from a gist
-* Including specific line numebrs from a gist
+* Including specific line numbers from a gist
 * Removing all line numbers from a gist
-* Removing footer from a gist
+* Removing the footer from a gist
 
 ####Notes about line number ranges:
 * You can put a single number like `"1"`, a range like `"2-5"`, single line numbers separated with commas like `"11,20"`, or a mix of both like `"2-5,11,10-14,20"`
