@@ -28,7 +28,7 @@ See example.html for all possible ways to use gist-embed:
 
 ###Version 1.1 change log
 * **Breaking change**:
- * Using the id attribute of your code element to specific the gist id is no longer accepted.  You must not use a data attribute to specify the gist id.  See above for examples
+ * Using the id attribute of your code element to specific the gist id is **no longer accepted**.  You must now use a data attribute to specify the gist id.  See above for examples
   * Reason for this change is that it is not proper HTML markup to have multiple DOM elements with the same id attribute on the same page and that it could lead to conflicts when including the same gist in multiple areas.
 * Other changes:
  * Cleaned up example.html to include all possible ways to use gist
