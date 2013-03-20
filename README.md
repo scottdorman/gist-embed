@@ -9,7 +9,7 @@
   </head>
 ```
 
-#### Add a code element to your page with a data attribute in the following format, where <gist-id> should be replaced with the id of your gist:
+#### Add a code element to your page with a data attribute in the following format, where `<gist-id>` should be replaced with the id of your gist:
 
 ```html
   <code data-gist-id="gist-<gist-id>"></code>
