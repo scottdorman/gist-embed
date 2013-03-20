@@ -30,6 +30,7 @@ See example.html for all possible ways to use gist-embed:
 * **Breaking change**:
  * Using the id attribute of your code element to specific the gist id is **no longer accepted**.  You must now use a data attribute to specify the gist id.  See above for examples
   * Reason for this change is that it is not proper HTML markup to have multiple DOM elements with the same id attribute on the same page and that it could lead to conflicts when including the same gist in multiple areas.
+  * For the meantime, I will allow for both methods so anyone using this code from github directly won't have broken gists on their page.  I plan to deprecate this in the next month.
 * Other changes:
  * Cleaned up example.html to include all possible ways to use gist
  * Thanks to https://github.com/kashif-umair for providing a way to remove the gist footer, remove all line numbers, and specify specific line number ranges to include

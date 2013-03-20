@@ -5,7 +5,7 @@ $(function(){
     _guidIdCounter = 0;
 
   //find all code elements containing "gist-" the id attribute.
-  $('code[data-gist-id*="'+gistMarkerId+'"]').each(function(){
+  $('code[data-gist-id*="'+gistMarkerId+'"], code[id*="'+gistMarkerId+'"]').each(function(){
     var $elem = $(this),
       id,
       url,
@@ -16,7 +16,7 @@ $(function(){
     //make block level so loading text shows properly
     $elem.css('display', 'block');
 
-    id = $elem.attr('data-gist-id') || '';
+    id = $elem.attr('data-gist-id') || $elem.attr('id') || '';
     file = $elem.attr('data-file');
     line = $elem.attr('data-line') || '';
     line = line.replace(/ /g, '');
