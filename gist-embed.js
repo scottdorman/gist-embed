@@ -9,13 +9,16 @@ $(function(){
       id,
       url,
       file,
+      line,
       data = {};
 
-    id = $elem.attr('id') || '';
-    file = $elem.attr('data-file');
+    id              = $elem.attr('id') || '';
+    file            = $elem.attr('data-file');
+    line            = $elem.attr('data-line');
     
     if(file){
       data.file = file;
+      splittedFileName = file.split('.').join('-');
     }
 
     //if the id doesn't begin with 'gist-', then ignore the code block
@@ -51,8 +54,35 @@ $(function(){
               l.href = response.stylesheet;
               head.insertBefore(l, head.firstChild);
             }
-            //add the html to your element holder
-            $elem.html(response.div);
+
+            var random = Math.floor(Math.random() * 100000);
+            $elem.html("<div id='" + random + "'>" + response.div + "</div>");
+
+            if(line){
+              var lineNumbers = getLineNumbers(line);
+              $('#' + random).find('.line').each(function(index){
+                if(($.inArray(index + 1, lineNumbers)) == -1){
+                  $(this).remove();
+                }
+              });
+
+              lineNumber = 1;
+              $('#' + random).find('.line-number').each(function(index){
+                if(($.inArray(index + 1, lineNumbers)) == -1){
+                  $(this).remove();
+                }
+                else{
+                  $(this).html(lineNumber++);
+                }
+              });
+            }
+            if($elem.attr('data-showFooter') && $elem.attr('data-showFooter') == "false"){
+              $('#' + random).find('.gist-meta').remove();
+            }
+
+            if($elem.attr('data-showLineNumbers') && $elem.attr('data-showLineNumbers') == "false"){
+              $('#' + random).find('.line-numbers').remove();
+            }
           }else{
             $elem.html('Failed loading gist ' + url);
           }
@@ -66,3 +96,20 @@ $(function(){
     }
   });
 });
+
+function getLineNumbers(lineRangeString){
+  var lineNumbers = new Array();
+  var lineNumberSections = lineRangeString.split(',');
+  for(var k = 0; k < lineNumberSections.length; k++){
+    var range = lineNumberSections[k].split('-');
+    if(range.length == 2){
+      for(var i = parseInt(range[0]); i <= range[1]; i++){
+        lineNumbers.push(i);
+      }
+    }
+    else if(range.length == 1){
+      lineNumbers.push(parseInt(range[0]));
+    }
+  }
+  return lineNumbers;
+}
