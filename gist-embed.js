@@ -67,7 +67,11 @@ $(function(){
             head.insertBefore(linkTag, head.firstChild);
           }
 
+          //refernce to div
           $responseDiv = $(response.div);
+          //remove id for uniqueness constraints
+          $responseDiv.removeAttr('id');
+
           $elem.html('').append($responseDiv);
 
           //if user provided a line param, get the line numbers baesed on the criteria
