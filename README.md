@@ -2,7 +2,7 @@
 
 #### Include jQuery and gist-embed src:
 
-```javascript
+```html
   <head>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script type="text/javascript" src="https://raw.github.com/blairvanderhoof/gist-embed/master/gist-embed.js"></script>
