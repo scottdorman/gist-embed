@@ -27,9 +27,9 @@ See example.html for all possible ways to use gist-embed:
 * You can put a single number like `"1"`, a range like `"2-5"`, single line numbers separated with commas like `"11,20"`, or a mix of both like `"2-5,11,10-14,20"`
 
 ###Version 1.1 change log
-* Breaking change:
-** Using the id attribute of your code element to specific the gist id is no longer accepted.  You must not use a data attribute to specify the gist id.  See above for examples
-*** Reason for this change is that it is not proper HTML markup to have multiple DOM elements with the same id attribute on the same page and that it could lead to conflicts when including the same gist in multiple areas.
+* **Breaking change**:
+ * Using the id attribute of your code element to specific the gist id is no longer accepted.  You must not use a data attribute to specify the gist id.  See above for examples
+  * Reason for this change is that it is not proper HTML markup to have multiple DOM elements with the same id attribute on the same page and that it could lead to conflicts when including the same gist in multiple areas.
 * Other changes:
-** Cleaned up example.html to include all possible ways to use gist
-** Thanks to https://github.com/kashif-umair for providing a way to remove the gist footer, remove all line numbers, and specify specific line number ranges to include
+ * Cleaned up example.html to include all possible ways to use gist
+ * Thanks to https://github.com/kashif-umair for providing a way to remove the gist footer, remove all line numbers, and specify specific line number ranges to include
