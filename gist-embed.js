@@ -1,6 +1,6 @@
 //author: Blair Vanderhoof
 //https://github.com/blairvanderhoof/gist-embed
-$(function(){
+(function($){ $(function(){
   var gistMarkerId = 'gist-';
 
   //find all code elements containing "gist-" the id attribute.
@@ -102,7 +102,7 @@ $(function(){
             $responseDiv.find('.gist-meta').remove();
           }
 
-          //option to remove 
+          //option to remove
           if(hideLineNumbersOption){
             $responseDiv.find('.line-numbers').remove();
           }
@@ -134,4 +134,4 @@ $(function(){
     }
     return lineNumbers;
   }
-});
+})})(jQuery);
