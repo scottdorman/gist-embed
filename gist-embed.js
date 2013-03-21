@@ -1,116 +1,137 @@
-/**
- * @author Blair Vanderhoof
- * @url https://github.com/blairvanderhoof/gist-embed
- */
-;(function($){
-    var gistMarkerId = 'gist-';
-    //find all code elements containing "gist-" the id attribute.
-    $('code[id*="'+gistMarkerId+'"]').each(function(){
-        var $elem = $(this),
-            id,
-            url,
-            file,
-            line,
-            data = {};
+//author: Blair Vanderhoof
+//https://github.com/blairvanderhoof/gist-embed
+$(function(){
+  var gistMarkerId = 'gist-';
 
-        id              = $elem.attr('id') || '';
-        file            = $elem.attr('data-file');
-        line            = $elem.attr('data-line');
+  //find all code elements containing "gist-" the id attribute.
+  $('code[data-gist-id*="'+gistMarkerId+'"], code[id*="'+gistMarkerId+'"]').each(function(){
+    var $elem = $(this),
+      id,
+      url,
+      file,
+      line,
+      hideFooterOption,
+      hideLineNumbersOption,
+      data = {};
 
-        if(file){
-            data.file = file;
-            splittedFileName = file.split('.').join('-');
-        }
+    //make block level so loading text shows properly
+    $elem.css('display', 'block');
 
-        //if the id doesn't begin with 'gist-', then ignore the code block
-        if (!id || id.indexOf('gist-') !== 0) return false;
+    id = $elem.attr('data-gist-id') || $elem.attr('id') || '';
+    file = $elem.attr('data-file');
+    hideFooterOption = $elem.attr('data-hide-footer') === "true";
+    hideLineNumbersOption = $elem.attr('data-hide-line-numbers') === "true";
+    line = $elem.attr('data-line') || '';
+    line = line.replace(/ /g, '');
 
-        //make block level so loading text shows properly
-        $elem.css('display', 'block');
+    if(file){
+      data.file = file;
+    }
 
-        //get the numeric id from the id attribute of the element holder
-        id = id.substr(0, gistMarkerId.length) === gistMarkerId ? id.replace(gistMarkerId, '') : null;
+    //if the id doesn't begin with 'gist-', then ignore the code block
+    if (!id || id.indexOf('gist-') !== 0) return false;
 
-        //make sure result is a numeric id
-        if(!isNaN(parseInt(id, 10))){
-            url = 'https://gist.github.com/' + id + '.json';
-            //loading
-            $elem.html('Loading gist ' + url + (data.file ? ', file: ' + data.file : '') + '...');
-            //request the json version of this gist
-            $.ajax({
-                url: url,
-                data: data,
-                dataType: 'jsonp',
-                timeout: 10000,
-                success: function(response){
-                    //the html payload is in the div property
-                    if(response && response.div){
-                        //add the stylesheet if it does not exist
-                        if(response.stylesheet && $('link[href="' + response.stylesheet + '"]').length === 0){
-                            var l = document.createElement("link"),
-                                head = document.getElementsByTagName("head")[0];
+    //get the numeric id from the id attribute of the element holder
+    id = id.substr(0, gistMarkerId.length) === gistMarkerId ? id.replace(gistMarkerId, '') : null;
 
-                            l.type = "text/css";
-                            l.rel = "stylesheet";
-                            l.href = response.stylesheet;
-                            head.insertBefore(l, head.firstChild);
-                        }
+    //make sure result is a numeric id
+    if(isNaN(parseInt(id, 10))){
+      $elem.html('Failed loading gist with incorrect id format: ' + id);
+      return false;
+    }
 
-                        var random = Math.floor(Math.random() * 100000);
-                        $elem.html("<div id='" + random + "'>" + response.div + "</div>");
+    url = 'https://gist.github.com/' + id + '.json';
 
-                        if(line){
-                            var lineNumbers = getLineNumbers(line);
-                            $('#' + random).find('.line').each(function(index){
-                                if(($.inArray(index + 1, lineNumbers)) == -1){
-                                    $(this).remove();
-                                }
-                            });
+    //loading
+    $elem.html('Loading gist ' + url + (data.file ? ', file: ' + data.file : '') + '...');
 
-                            lineNumber = 1;
-                            $('#' + random).find('.line-number').each(function(index){
-                                if(($.inArray(index + 1, lineNumbers)) == -1){
-                                    $(this).remove();
-                                }
-                                else{
-                                    $(this).html(lineNumber++);
-                                }
-                            });
-                        }
-                        if($elem.attr('data-showFooter') && $elem.attr('data-showFooter') == "false"){
-                            $('#' + random).find('.gist-meta').remove();
-                        }
+    //request the json version of this gist
+    $.ajax({
+      url: url,
+      data: data,
+      dataType: 'jsonp',
+      timeout: 10000,
+      success: function(response){
+        var linkTag,
+          lineNumbers,
+          $responseDiv;
 
-                        if($elem.attr('data-showLineNumbers') && $elem.attr('data-showLineNumbers') == "false"){
-                            $('#' + random).find('.line-numbers').remove();
-                        }
-                    }else{
-                        $elem.html('Failed loading gist ' + url);
-                    }
-                },
-                error: function(){
-                    $elem.html('Failed loading gist ' + url);
-                }
+        //the html payload is in the div property
+        if(response && response.div){
+
+          //add the stylesheet if it does not exist
+          if(response.stylesheet && $('link[href="' + response.stylesheet + '"]').length === 0){
+            linkTag = document.createElement("link"),
+            head = document.getElementsByTagName("head")[0];
+
+            linkTag.type = "text/css";
+            linkTag.rel = "stylesheet";
+            linkTag.href = response.stylesheet;
+            head.insertBefore(linkTag, head.firstChild);
+          }
+
+          //refernce to div
+          $responseDiv = $(response.div);
+
+          //remove id for uniqueness constraints
+          $responseDiv.removeAttr('id');
+
+          $elem.html('').append($responseDiv);
+
+          //if user provided a line param, get the line numbers baesed on the criteria
+          if(line){
+            lineNumbers = getLineNumbers(line),
+
+            //find all .line divs (acutal code lines) and remove them if they don't exist in the line param
+            $responseDiv.find('.line').each(function(index){
+              if(($.inArray(index + 1, lineNumbers)) === -1){
+                $(this).remove();
+              }
             });
-        }else{
-            $elem.html('Failed loading gist with incorrect id format: ' + $elem.attr('id'));
-        }
-    });
-})(jQuery);
 
-function getLineNumbers(lineRangeString){
-    var lineNumbers = new Array();
-    var lineNumberSections = lineRangeString.split(',');
-    for(var k = 0; k < lineNumberSections.length; k++){
-        var range = lineNumberSections[k].split('-');
-        if(range.length == 2){
-            for(var i = parseInt(range[0]); i <= range[1]; i++){
-                lineNumbers.push(i);
-            }
+            //find all .line-number divs (numbers on the gutter) and remove them if they don't exist in the line param
+            $responseDiv.find('.line-number').each(function(index){
+              if(($.inArray(index + 1, lineNumbers)) === -1){
+                $(this).remove();
+              }
+            });
+          }
+
+          //option to remove footer
+          if(hideFooterOption){
+            $responseDiv.find('.gist-meta').remove();
+          }
+
+          //option to remove 
+          if(hideLineNumbersOption){
+            $responseDiv.find('.line-numbers').remove();
+          }
+
+        }else{
+          $elem.html('Failed loading gist ' + url);
         }
-        else if(range.length == 1){
-            lineNumbers.push(parseInt(range[0]));
+      },
+      error: function(){
+        $elem.html('Failed loading gist ' + url);
+      }
+    });
+  });
+
+  function getLineNumbers(lineRangeString){
+    var lineNumbers = [],
+      lineNumberSections = lineRangeString.split(',');
+
+    for(var i = 0; i < lineNumberSections.length; i++){
+      var range = lineNumberSections[i].split('-');
+      if(range.length === 2){
+        for(var j = parseInt(range[0], 10); j <= range[1]; j++){
+          lineNumbers.push(j);
         }
+      }
+      else if(range.length === 1){
+        lineNumbers.push(parseInt(range[0], 10));
+      }
     }
     return lineNumbers;
-}
+  }
+});
