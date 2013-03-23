@@ -5,7 +5,7 @@
 ```html
   <head>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <script type="text/javascript" src="https://raw.github.com/blairvanderhoof/gist-embed/master/gist-embed.js"></script>
+    <script type="text/javascript" src="gist-embed.js"></script>
   </head>
 ```
 
@@ -27,6 +27,12 @@ See example.html for all possible ways to use gist-embed:
 * You can put a single number like `"1"`, a range like `"2-5"`, single line numbers separated with commas like `"11,20"`, or a mix of both like `"2-5,11,10-14,20"`
 
 ###Change log
+
+####Version 1.2 (March 22, 2013)
+* **Breaking change**:
+  * Removed code elements with id attributes of `gist-` from being parsed.  You must use `data-gist-id` and specify an integer specifying the id of your gist.
+  * Do not use `gist-` for the value of `data-gist-id`, only the value of the gist id is needed.
+  * Rewrote the data attribute names.  Now all attributes are using a `data-gist-` namespace for all attributes. Please see example.html for options.
 
 ####Version 1.1 (March 20, 2013)
 * **Breaking change**:

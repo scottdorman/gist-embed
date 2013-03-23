@@ -3,10 +3,8 @@
 (function($){
 
   $(function(){
-    var gistMarkerId = 'gist-';
-
-    //find all code elements containing "gist-" the id attribute.
-    $('code[data-gist-id*="'+gistMarkerId+'"], code[id*="'+gistMarkerId+'"]').each(function(){
+    //find all code elements containing "data-gist-id" attribute.
+    $('code[data-gist-id]').each(function(){
       var $elem = $(this),
         id,
         url,
@@ -19,22 +17,19 @@
       //make block level so loading text shows properly
       $elem.css('display', 'block');
 
-      id = $elem.attr('data-gist-id') || $elem.attr('id') || '';
-      file = $elem.attr('data-file');
-      hideFooterOption = $elem.attr('data-hide-footer') === "true";
-      hideLineNumbersOption = $elem.attr('data-hide-line-numbers') === "true";
-      line = $elem.attr('data-line') || '';
+      id = $elem.attr('data-gist-id') || '';
+      file = $elem.attr('data-gist-file');
+      hideFooterOption = $elem.attr('data-gist-hide-footer') === "true";
+      hideLineNumbersOption = $elem.attr('data-gist-hide-line-numbers') === "true";
+      line = $elem.attr('data-gist-line') || '';
       line = line.replace(/ /g, '');
 
       if(file){
         data.file = file;
       }
 
-      //if the id doesn't begin with 'gist-', then ignore the code block
-      if (!id || id.indexOf('gist-') !== 0) return false;
-
-      //get the numeric id from the id attribute of the element holder
-      id = id.substr(0, gistMarkerId.length) === gistMarkerId ? id.replace(gistMarkerId, '') : null;
+      //if the id doesn't exist, then ignore the code block
+      if (!id) return false;
 
       //make sure result is a numeric id
       if(isNaN(parseInt(id, 10))){
