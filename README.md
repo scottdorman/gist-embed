@@ -12,7 +12,7 @@
 #### Add a code element to your page with a data attribute in the following format, where `<gist-id>` should be replaced with the id of your gist:
 
 ```html
-  <code data-gist-id="gist-<gist-id>"></code>
+  <code data-gist-id="<gist-id>"></code>
 ```
 
 ####Examples
@@ -33,6 +33,7 @@ See example.html for all possible ways to use gist-embed:
   * Removed code elements with id attributes of `gist-` from being parsed.  You must use `data-gist-id` and specify an integer specifying the id of your gist.
   * Do not use `gist-` for the value of `data-gist-id`, only the value of the gist id is needed.
   * Rewrote the data attribute names.  Now all attributes are using a `data-gist-` namespace for all attributes. Please see example.html for options.
+  * Do not point directly to gist-embed from github.  Host your own version so that if breaking changes are introduced, your websites won't be affected.
 
 ####Version 1.1 (March 20, 2013)
 * **Breaking change**:
