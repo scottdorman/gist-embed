@@ -16,7 +16,7 @@
 ```
 
 ####Examples
-See example.html for all possible ways to use gist-embed:
+See http://blairvanderhoof.com/gist-embed/ for all possible ways to use gist-embed:
 * Including a single gist
 * Including individual files from a gist
 * Including specific line numbers from a gist
