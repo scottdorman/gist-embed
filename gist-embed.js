@@ -1,5 +1,6 @@
 // author: Blair Vanderhoof
 // https://github.com/blairvanderhoof/gist-embed
+// version 1.2
 (function($){
 
   $(function(){
