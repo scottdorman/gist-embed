@@ -80,8 +80,21 @@
       code{
         margin: 0 0 30px 0;
         display: block;
-        font-size: 16px;
         font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+      }
+
+      @media screen and (max-device-width: 480px){
+        body{
+          -webkit-text-size-adjust: none;
+        }
+
+        code{
+          font-size: 13px;
+        }
+
+        p{
+          font-size: 16px;
+        }
       }
     </style>
   </head>
