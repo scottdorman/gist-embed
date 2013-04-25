@@ -1,9 +1,9 @@
-//author: Blair Vanderhoof
-//https://github.com/blairvanderhoof/gist-embed
+// author: Blair Vanderhoof
+// https://github.com/blairvanderhoof/gist-embed
 (function($){
 
   $(function(){
-    //find all code elements containing "data-gist-id" attribute.
+    // find all code elements containing "data-gist-id" attribute.
     $('code[data-gist-id]').each(function(){
       var $elem = $(this),
         id,
@@ -14,7 +14,7 @@
         hideLineNumbersOption,
         data = {};
 
-      //make block level so loading text shows properly
+      // make block level so loading text shows properly
       $elem.css('display', 'block');
 
       id = $elem.attr('data-gist-id') || '';
@@ -28,10 +28,10 @@
         data.file = file;
       }
 
-      //if the id doesn't exist, then ignore the code block
+      // if the id doesn't exist, then ignore the code block
       if (!id) return false;
 
-      //make sure result is a numeric id
+      // make sure result is a numeric id
       if(isNaN(parseInt(id, 10))){
         $elem.html('Failed loading gist with incorrect id format: ' + id);
         return false;
@@ -39,10 +39,10 @@
 
       url = 'https://gist.github.com/' + id + '.json';
 
-      //loading
+      // loading
       $elem.html('Loading gist ' + url + (data.file ? ', file: ' + data.file : '') + '...');
 
-      //request the json version of this gist
+      // request the json version of this gist
       $.ajax({
         url: url,
         data: data,
@@ -53,10 +53,10 @@
             lineNumbers,
             $responseDiv;
 
-          //the html payload is in the div property
+          // the html payload is in the div property
           if(response && response.div){
 
-            //add the stylesheet if it does not exist
+            // add the stylesheet if it does not exist
             if(response.stylesheet && $('link[href="' + response.stylesheet + '"]').length === 0){
               linkTag = document.createElement("link"),
               head = document.getElementsByTagName("head")[0];
@@ -67,26 +67,26 @@
               head.insertBefore(linkTag, head.firstChild);
             }
 
-            //refernce to div
+            // refernce to div
             $responseDiv = $(response.div);
 
-            //remove id for uniqueness constraints
+            // remove id for uniqueness constraints
             $responseDiv.removeAttr('id');
 
             $elem.html('').append($responseDiv);
 
-            //if user provided a line param, get the line numbers baesed on the criteria
+            // if user provided a line param, get the line numbers baesed on the criteria
             if(line){
               lineNumbers = getLineNumbers(line),
 
-              //find all .line divs (acutal code lines) and remove them if they don't exist in the line param
+              // find all .line divs (acutal code lines) and remove them if they don't exist in the line param
               $responseDiv.find('.line').each(function(index){
                 if(($.inArray(index + 1, lineNumbers)) === -1){
                   $(this).remove();
                 }
               });
 
-              //find all .line-number divs (numbers on the gutter) and remove them if they don't exist in the line param
+              // find all .line-number divs (numbers on the gutter) and remove them if they don't exist in the line param
               $responseDiv.find('.line-number').each(function(index){
                 if(($.inArray(index + 1, lineNumbers)) === -1){
                   $(this).remove();
@@ -94,12 +94,12 @@
               });
             }
 
-            //option to remove footer
+            // option to remove footer
             if(hideFooterOption){
               $responseDiv.find('.gist-meta').remove();
             }
 
-            //option to remove
+            // option to remove
             if(hideLineNumbersOption){
               $responseDiv.find('.line-numbers').remove();
             }
