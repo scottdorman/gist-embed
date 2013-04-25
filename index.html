@@ -32,7 +32,7 @@
       }
 
       header{
-        margin-bottom: 20px;
+        margin-bottom: 25px;
       }
 
       header a{
@@ -76,6 +76,17 @@
         height: 30px;
         vertical-align: middle;
       }
+
+      .attribution{
+        font-size: 18px;
+        clear: both;
+      }
+
+      a.icons{
+        text-decoration: none;
+        margin-bottom: 5px;
+        display: block;
+      }
       
       code{
         margin: 0 0 30px 0;
@@ -83,11 +94,46 @@
         font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
       }
 
-      @media screen and (max-device-width: 480px){
+      .iconBlock{
+        float: left;
+        overflow: hidden;
+        margin-right: 10px;
+      }
+      .iconBlock:last-child{
+        margin-right: 0;
+      }
+
+      @media screen and (max-width: 480px){
         body{
           -webkit-text-size-adjust: none;
         }
 
+      h1{
+        font-size: 26px;
+        margin-bottom: 5px;
+      }
+
+      h2{
+        font-size: 18px;
+        margin-bottom: 4px;
+      }
+
+      h3{
+        font-size: 16px;
+      }
+
+      .attribution{
+        font-size: 16px;
+      }
+
+        header{
+          text-align: center;
+        }
+
+        header .iconBlock{
+          float: none;
+          margin-right: 0;
+        }
         code{
           font-size: 13px;
         }
@@ -97,6 +143,15 @@
         }
       }
     </style>
+
+    <script>
+      // get stars
+      $(function(){
+        $.getJSON('https://api.github.com/repos/blairvanderhoof/gist-embed/stargazers?callback=?', function(d){
+          $('.starCount').text(d && d.data ? d.data.length : '');
+        });
+      });
+    </script>
   </head>
 <body>
   <div id="container">
@@ -104,7 +159,24 @@
     <header>
       <h1><a href="https://github.com/blairvanderhoof/gist-embed">gist-embed</a></h1>
       <h2>Ultra powered gist embedding for your website</h2>
-      <h3> <a href="https://github.com/blairvanderhoof/gist-embed"><img class="icon" src="github-icon.png"/></a> written by <a href="http://blairvanderhoof.com">Blair Vanderhoof</a></h3>
+      <h3> 
+        <span class="iconBlock">
+          <a class="icons" href="https://github.com/blairvanderhoof/gist-embed">
+            <img class="icon" src="star-icon.png"/>
+            <span class="starCount"></span>
+          </a>
+        </span>
+        <span class="iconBlock">
+          <a class="icons" href="https://github.com/blairvanderhoof/gist-embed">
+            <img class="icon" src="github-icon.png"/>
+            <span>Documentation and source on Github</span>
+          </a>
+        </span>
+        <div class="attribution">
+          <span>written by</span>
+          <a href="http://blairvanderhoof.com">Blair Vanderhoof</a>
+        </div>
+      </h3>
     </header>
 
     <p>Loading a gist</p>
