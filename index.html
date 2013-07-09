@@ -150,8 +150,8 @@
     <script>
       // get stars
       $(function(){
-        $.getJSON('https://api.github.com/repos/blairvanderhoof/gist-embed/stargazers?callback=?', function(d){
-          $('.starCount').text(d && d.data ? d.data.length : '');
+        $.getJSON('https://api.github.com/repos/blairvanderhoof/gist-embed?callback=?', function(d){
+          $('.starCount').text(d && d.data ? d.data.watchers_count : '');
         });
       });
     </script>
