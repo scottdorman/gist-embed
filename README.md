@@ -27,6 +27,8 @@ See http://blairvanderhoof.com/gist-embed/ for all possible ways to use gist-emb
 * You can put a single number like `"1"`, a range like `"2-5"`, single line numbers separated with commas like `"11,20"`, or a mix of both like `"2-5,11,10-14,20"`
 
 ###Change log
+####Version 1.3 (July 17, 2013)
+* Github changed their stylesheet property to be relative instead of absolute. Updated gist-embed accordingly to allow for these kinds of changes in the future.
 
 ####Version 1.2 (March 22, 2013)
 * **Breaking change**:
