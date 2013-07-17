@@ -56,7 +56,15 @@
 
           // the html payload is in the div property
           if(response && response.div){
-
+            // github returns /assets/embed-id.css now, but let's be sure about that
+            if(response.stylesheet && response.stylesheet.indexOf('http') !==0){
+                 // add leading slash if missing
+                 if(response.stylesheet.indexOf('/') !==0){
+                   response.stylesheet = '/' + response.stylesheet;
+                 }
+                 response.stylesheet = 'https://gist.github.com'+ response.stylesheet;
+              }
+            }
             // add the stylesheet if it does not exist
             if(response.stylesheet && $('link[href="' + response.stylesheet + '"]').length === 0){
               linkTag = document.createElement("link"),
