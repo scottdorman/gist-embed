@@ -32,10 +32,10 @@ See http://blairvanderhoof.com/gist-embed/ for all possible ways to use gist-emb
 * You can avoid this by using a generic HTML element such as `div` instead of `code` as version 1.4 now targets all elements that have a data-gist-id attribute regardless of their tag name.
 
 ###Change log
+
 ####Version 1.4 (Dec 2, 2013)
 * Changed to use `$("[data-gist-id]")` as a more general selector that works with any element, not just `code` tags. Performance should not be affected: http://jsperf.com/gist-embed
 
-###Change log
 ####Version 1.3 (July 17, 2013)
 * Github changed their stylesheet property to be relative instead of absolute. Updated gist-embed accordingly to allow for these kinds of changes in the future.
 
