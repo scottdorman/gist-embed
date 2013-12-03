@@ -4,8 +4,8 @@
 (function($) {
 
   $(function() {
-    // find all code elements containing "data-gist-id" attribute.
-    $('code[data-gist-id]').each(function() {
+    // find allc elements containing "data-gist-id" attribute.
+    $('[data-gist-id]').each(function() {
       var $elem = $(this),
         id,
         url,
