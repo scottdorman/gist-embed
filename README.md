@@ -9,7 +9,7 @@
   </head>
 ```
 
-#### Add a code element to your page with a data attribute in the following format, where `<gist-id>` should be replaced with the id of your gist:
+#### Add an HTML element to your page with a data attribute in the following format, where `<gist-id>` should be replaced with the id of your gist:
 
 ```html
   <code data-gist-id="<gist-id>"></code>
@@ -23,8 +23,17 @@ See http://blairvanderhoof.com/gist-embed/ for all possible ways to use gist-emb
 * Removing all line numbers from a gist
 * Removing the footer from a gist
 
-####Notes about line number ranges:
+####FAQ
+#### How do I configure line numbers?
 * You can put a single number like `"1"`, a range like `"2-5"`, single line numbers separated with commas like `"11,20"`, or a mix of both like `"2-5,11,10-14,20"`
+
+#### Why does my gist-embed have incorrect styling?
+* It may be because the HTML element you are using has pre-existing styles either from the native browser or from a stylesheet include that you don't have control over.
+* You can avoid this by using a generic HTML element such as `div` instead of `code` as version 1.4 now targets all elements that have a data-gist-id attribute regardless of their tag name.
+
+###Change log
+####Version 1.4 (Dec 2, 2013)
+* Changed to use `$("[data-gist-id]")` as a more general selector that works with any element, not just `code` tags.
 
 ###Change log
 ####Version 1.3 (July 17, 2013)
