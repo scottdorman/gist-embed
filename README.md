@@ -33,7 +33,7 @@ See http://blairvanderhoof.com/gist-embed/ for all possible ways to use gist-emb
 
 ###Change log
 ####Version 1.4 (Dec 2, 2013)
-* Changed to use `$("[data-gist-id]")` as a more general selector that works with any element, not just `code` tags.
+* Changed to use `$("[data-gist-id]")` as a more general selector that works with any element, not just `code` tags. Performance should not be affected: http://jsperf.com/gist-embed
 
 ###Change log
 ####Version 1.3 (July 17, 2013)
