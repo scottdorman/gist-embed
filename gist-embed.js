@@ -4,7 +4,7 @@
 (function($) {
 
   $(function() {
-    // find allc elements containing "data-gist-id" attribute.
+    // find all elements containing "data-gist-id" attribute.
     $('[data-gist-id]').each(function() {
       var $elem = $(this),
         id,
