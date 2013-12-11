@@ -116,12 +116,34 @@
           } else {
             $elem.html('Failed loading gist ' + url);
           }
+
+          if($elem.attr('data-highlight-line')){
+            lineHightlight($elem);
+          }
+
         },
         error: function() {
           $elem.html('Failed loading gist ' + url);
         }
       });
     });
+
+    function lineHightlight(element){
+      var lines = getLineNumbers(element.attr('data-highlight-line'));
+
+      element
+        .find('table').css({'width': '100%'})
+        .find('.line-numbers').css({'width': '9px'})
+        .parentsUntil()
+        .find('.line-data').attr('style', 'padding: 0.5em 0 !important')
+        .find('.line-pre').css({'width': '100%', 'overflow' : 'hidden'})
+        .find('div').attr('style', 'width:100%; padding-left: .5em !important');
+
+      $.each(lines, function(index){
+        element.find('#file-example-html-LC'+lines[index]).css({'background' : 'rgb(255, 255, 204)'});
+      });
+
+    }
 
     function getLineNumbers(lineRangeString) {
       var lineNumbers = [],
