@@ -39,8 +39,8 @@ See http://blairvanderhoof.com/gist-embed/ for all possible ways to use gist-emb
 
 ####Version 1.5 (Dec 11, 2013)
 * You can now highlight individual lines with the same syntax used in `data-gist-line` but now using the `data-gist-highlight-line` attribute
-** Merged and cleaned up https://github.com/blairvanderhoof/gist-embed/pull/16
-** Thanks https://github.com/luanmuniz !
+    * Merged and cleaned up https://github.com/blairvanderhoof/gist-embed/pull/16
+    * Thanks https://github.com/luanmuniz !
 * Added a test.html for easier testing
 * Fixed some lingering issues with linting such as a global 'head' variable, and mixed double vs. single quotes.
 
