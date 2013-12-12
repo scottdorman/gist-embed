@@ -32,7 +32,17 @@ See http://blairvanderhoof.com/gist-embed/ for all possible ways to use gist-emb
 * It may be because the HTML element you are using has pre-existing styles either from the native browser or from a stylesheet include that you don't have control over.
 * You can avoid this by using a generic HTML element such as `div` instead of `code` as version 1.4 now targets all elements that have a data-gist-id attribute regardless of their tag name.
 
+#### How do I highlight line numbers?
+* Use the same pattern for line numbers as data-gist-line, but use the attribute data-gist-highlight-line
+
 ###Change log
+
+####Version 1.5 (Dec 11, 2013)
+* You can now highlight individual lines with the same syntax used in `data-gist-line` but now using the `data-gist-highlight-line` attribute
+** Merged and cleaned up https://github.com/blairvanderhoof/gist-embed/pull/16
+** Thanks https://github.com/luanmuniz !
+* Added a test.html for easier testing
+* Fixed some lingering issues with linting such as a global 'head' variable, and mixed double vs. single quotes.
 
 ####Version 1.4 (Dec 2, 2013)
 * Changed to use `$("[data-gist-id]")` as a more general selector that works with any element, not just `code` tags. Performance should not be affected: http://jsperf.com/gist-embed
