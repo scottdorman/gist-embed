@@ -10,7 +10,8 @@
         id,
         url,
         file,
-        line,
+        lines,
+        highlightLines,
         hideFooterOption,
         hideLineNumbersOption,
         data = {};
@@ -20,10 +21,10 @@
 
       id = $elem.attr('data-gist-id') || '';
       file = $elem.attr('data-gist-file');
-      hideFooterOption = $elem.attr('data-gist-hide-footer') === "true";
-      hideLineNumbersOption = $elem.attr('data-gist-hide-line-numbers') === "true";
-      line = $elem.attr('data-gist-line') || '';
-      line = line.replace(/ /g, '');
+      hideFooterOption = $elem.attr('data-gist-hide-footer') === 'true';
+      hideLineNumbersOption = $elem.attr('data-gist-hide-line-numbers') === 'true';
+      lines = ($elem.attr('data-gist-line') || '').replace(/ /g, '');
+      highlightLines = ($elem.attr('data-gist-highlight-line') || '').replace(/ /g, '');
 
       if (file) {
         data.file = file;
@@ -51,7 +52,9 @@
         timeout: 10000,
         success: function(response) {
           var linkTag,
+            head,
             lineNumbers,
+            highlightLineNumbers,
             $responseDiv;
 
           // the html payload is in the div property
@@ -67,11 +70,11 @@
 
             // add the stylesheet if it does not exist
             if (response.stylesheet && $('link[href="' + response.stylesheet + '"]').length === 0) {
-              linkTag = document.createElement("link"),
-              head = document.getElementsByTagName("head")[0];
+              linkTag = document.createElement('link');
+              head = document.getElementsByTagName('head')[0];
 
-              linkTag.type = "text/css";
-              linkTag.rel = "stylesheet";
+              linkTag.type = 'text/css';
+              linkTag.rel = 'stylesheet';
               linkTag.href = response.stylesheet;
               head.insertBefore(linkTag, head.firstChild);
             }
@@ -85,8 +88,8 @@
             $elem.html('').append($responseDiv);
 
             // if user provided a line param, get the line numbers baesed on the criteria
-            if (line) {
-              lineNumbers = getLineNumbers(line),
+            if (lines) {
+              lineNumbers = getLineNumbers(lines);
 
               // find all .line divs (acutal code lines) and remove them if they don't exist in the line param
               $responseDiv.find('.line').each(function(index) {
@@ -113,14 +116,28 @@
               $responseDiv.find('.line-numbers').remove();
             }
 
+            // option to highlight lines
+            if (highlightLines) {
+              highlightLineNumbers = getLineNumbers(highlightLines);
+
+              // we need to set the line-data td to 100% so the highlight expands the whole line
+              $responseDiv.find('td.line-data').css({
+                'width': '100%'
+              });
+
+              // find all .line divs (acutal code lines) that match the highlightLines and add the highlight class
+              $responseDiv.find('.line').each(function(index) {
+                if ($.inArray(index + 1, highlightLineNumbers) !== -1) {
+                  $(this).css({
+                    'background-color': 'rgb(255, 255, 204)'
+                  });
+                }
+              });
+            }
+
           } else {
             $elem.html('Failed loading gist ' + url);
           }
-
-          if($elem.attr('data-highlight-line')){
-            lineHightlight($elem);
-          }
-
         },
         error: function() {
           $elem.html('Failed loading gist ' + url);
@@ -128,29 +145,13 @@
       });
     });
 
-    function lineHightlight(element){
-      var lines = getLineNumbers(element.attr('data-highlight-line'));
-
-      element
-        .find('table').css({'width': '100%'})
-        .find('.line-numbers').css({'width': '9px'})
-        .parentsUntil()
-        .find('.line-data').attr('style', 'padding: 0.5em 0 !important')
-        .find('.line-pre').css({'width': '100%', 'overflow' : 'hidden'})
-        .find('div').attr('style', 'width:100%; padding-left: .5em !important');
-
-      $.each(lines, function(index){
-        element.find('#file-example-html-LC'+lines[index]).css({'background' : 'rgb(255, 255, 204)'});
-      });
-
-    }
-
     function getLineNumbers(lineRangeString) {
       var lineNumbers = [],
-        lineNumberSections = lineRangeString.split(',');
+        lineNumberSections = lineRangeString.split(','),
+        range;
 
       for (var i = 0; i < lineNumberSections.length; i++) {
-        var range = lineNumberSections[i].split('-');
+        range = lineNumberSections[i].split('-');
         if (range.length === 2) {
           for (var j = parseInt(range[0], 10); j <= range[1]; j++) {
             lineNumbers.push(j);
