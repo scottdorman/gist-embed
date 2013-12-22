@@ -37,6 +37,10 @@ See http://blairvanderhoof.com/gist-embed/ for all possible ways to use gist-emb
 
 ###Change log
 
+####Version 1.6 (Dec 22, 2013)
+* Allowed for private gists by not checking the type of id passed in as private gists can start with letters or numbers
+* Print error statement to html for easier debugging
+
 ####Version 1.5 (Dec 11, 2013)
 * You can now highlight individual lines with the same syntax used in `data-gist-line` but now using the `data-gist-highlight-line` attribute
     * Merged and cleaned up https://github.com/blairvanderhoof/gist-embed/pull/16

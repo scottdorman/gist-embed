@@ -33,12 +33,6 @@
       // if the id doesn't exist, then ignore the code block
       if (!id) return false;
 
-      // make sure result is a numeric id
-      if (isNaN(parseInt(id, 10))) {
-        $elem.html('Failed loading gist with incorrect id format: ' + id);
-        return false;
-      }
-
       url = 'https://gist.github.com/' + id + '.json';
 
       // loading
@@ -139,8 +133,8 @@
             $elem.html('Failed loading gist ' + url);
           }
         },
-        error: function() {
-          $elem.html('Failed loading gist ' + url);
+        error: function(jqXHR, textStatus) {
+          $elem.html('Failed loading gist ' + url + ': ' + textStatus);
         }
       });
     });
