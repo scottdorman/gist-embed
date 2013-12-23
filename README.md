@@ -38,7 +38,7 @@ See http://blairvanderhoof.com/gist-embed/ for all possible ways to use gist-emb
 ###Change log
 
 ####Version 1.6 (Dec 22, 2013)
-* Allowed for private gists by not checking the type of id passed in as private gists can start with letters or numbers
+* Allow private gists by not checking the type of id passed in as private gists can start with letters or numbers
 * Print error statement to html for easier debugging
 
 ####Version 1.5 (Dec 11, 2013)
