@@ -37,6 +37,9 @@ See http://blairvanderhoof.com/gist-embed/ for all possible ways to use gist-emb
 
 ###Change log
 
+####Version 1.7 (March 28, 2014)
+* Merged pull request https://github.com/blairvanderhoof/gist-embed/pull/20 to highlight lines first before filtering.  Thanks Microdog!
+
 ####Version 1.6 (Dec 22, 2013)
 * Allow private gists by not checking the type of id passed in as private gists can start with letters or numbers
 * Print error statement to html for easier debugging
