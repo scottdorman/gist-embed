@@ -81,6 +81,25 @@
 
             $elem.html('').append($responseDiv);
 
+            // option to highlight lines
+            if (highlightLines) {
+              highlightLineNumbers = getLineNumbers(highlightLines);
+
+              // we need to set the line-data td to 100% so the highlight expands the whole line
+              $responseDiv.find('td.line-data').css({
+                'width': '100%'
+              });
+
+              // find all .line divs (acutal code lines) that match the highlightLines and add the highlight class
+              $responseDiv.find('.line').each(function(index) {
+                if ($.inArray(index + 1, highlightLineNumbers) !== -1) {
+                  $(this).css({
+                    'background-color': 'rgb(255, 255, 204)'
+                  });
+                }
+              });
+            }
+
             // if user provided a line param, get the line numbers baesed on the criteria
             if (lines) {
               lineNumbers = getLineNumbers(lines);
@@ -108,25 +127,6 @@
             // option to remove
             if (hideLineNumbersOption) {
               $responseDiv.find('.line-numbers').remove();
-            }
-
-            // option to highlight lines
-            if (highlightLines) {
-              highlightLineNumbers = getLineNumbers(highlightLines);
-
-              // we need to set the line-data td to 100% so the highlight expands the whole line
-              $responseDiv.find('td.line-data').css({
-                'width': '100%'
-              });
-
-              // find all .line divs (acutal code lines) that match the highlightLines and add the highlight class
-              $responseDiv.find('.line').each(function(index) {
-                if ($.inArray(index + 1, highlightLineNumbers) !== -1) {
-                  $(this).css({
-                    'background-color': 'rgb(255, 255, 204)'
-                  });
-                }
-              });
             }
 
           } else {
