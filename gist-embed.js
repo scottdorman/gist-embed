@@ -3,9 +3,26 @@
 // version 1.7
 (function($) {
 
-  $(function() {
-    // find all elements containing "data-gist-id" attribute.
-    $('[data-gist-id]').each(function() {
+  function getLineNumbers(lineRangeString) {
+    var lineNumbers = [],
+      lineNumberSections = lineRangeString.split(','),
+      range;
+
+    for (var i = 0; i < lineNumberSections.length; i++) {
+      range = lineNumberSections[i].split('-');
+      if (range.length === 2) {
+        for (var j = parseInt(range[0], 10); j <= range[1]; j++) {
+          lineNumbers.push(j);
+        }
+      } else if (range.length === 1) {
+        lineNumbers.push(parseInt(range[0], 10));
+      }
+    }
+    return lineNumbers;
+  }
+
+  $.fn.gist = function() {
+    return this.each(function() {
       var $elem = $(this),
         id,
         url,
@@ -137,25 +154,13 @@
           $elem.html('Failed loading gist ' + url + ': ' + textStatus);
         }
       });
+
     });
+  };
 
-    function getLineNumbers(lineRangeString) {
-      var lineNumbers = [],
-        lineNumberSections = lineRangeString.split(','),
-        range;
-
-      for (var i = 0; i < lineNumberSections.length; i++) {
-        range = lineNumberSections[i].split('-');
-        if (range.length === 2) {
-          for (var j = parseInt(range[0], 10); j <= range[1]; j++) {
-            lineNumbers.push(j);
-          }
-        } else if (range.length === 1) {
-          lineNumbers.push(parseInt(range[0], 10));
-        }
-      }
-      return lineNumbers;
-    }
+  $(function() {
+    // find all elements containing "data-gist-id" attribute.
+    $('[data-gist-id]').gist();
   });
 
 })(jQuery);
