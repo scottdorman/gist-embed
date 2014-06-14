@@ -28,6 +28,28 @@
         font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
       }
     </style>
+    <script>
+      $(function() {
+        var $afterPageLoadTest = $('#after-page-load-test');
+        var $code = $('<code data-gist-id="474f6d7839fccffc4b2a"/>');
+        var s = 6;
+        var interval;
+
+        $afterPageLoadTest.text(s);
+
+        interval = setInterval(function() {
+          s--;
+
+          if (s >= 0) {
+            $afterPageLoadTest.text(s);
+          } else {
+            $afterPageLoadTest.text('');
+            $code.appendTo($afterPageLoadTest).gist();
+            clearInterval(interval);
+          }
+        }, 1000);
+      });
+    </script>
   </head>
 <body>
   <p>Loading a gist</p>
@@ -65,6 +87,9 @@
 
   <p>Loading a private gist</p>
   <code data-gist-id="a85770344febb8e30935"></code>
+
+  <p>Loading a gist after the page has loaded</p>
+  <code id="after-page-load-test"></code>
 
   <p>Loading a code element without a gist id data attribute</p>
   <code>
