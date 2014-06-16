@@ -37,6 +37,9 @@ See http://blairvanderhoof.com/gist-embed/ for all possible ways to use gist-emb
 
 ###Change log
 
+####Version 1.8 (June 16, 2014)
+* Merged #22 from miguelvps to expose gist-embed as a jQuery plugin. Now you can add new gist-emebd elements after the page has loaded. Thanks miguelvps!
+
 ####Version 1.7 (March 28, 2014)
 * Merged pull request https://github.com/blairvanderhoof/gist-embed/pull/20 to highlight lines first before filtering.  Thanks Microdog!
 
