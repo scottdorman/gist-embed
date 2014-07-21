@@ -4,20 +4,26 @@
 (function($) {
 
   function getLineNumbers(lineRangeString) {
-    var lineNumbers = [],
-      lineNumberSections = lineRangeString.split(','),
-      range;
+    var lineNumbers = [], range;
 
-    for (var i = 0; i < lineNumberSections.length; i++) {
-      range = lineNumberSections[i].split('-');
-      if (range.length === 2) {
-        for (var j = parseInt(range[0], 10); j <= range[1]; j++) {
-          lineNumbers.push(j);
-        }
-      } else if (range.length === 1) {
-        lineNumbers.push(parseInt(range[0], 10));
-      }
-    }
+	if (typeof lineRangeString === 'number')
+	{
+		lineNumbers.push(lineRangeString);
+	}
+	else {
+		var lineNumberSections = lineRangeString.split(',');
+
+		for (var i = 0; i < lineNumberSections.length; i++) {
+		  range = lineNumberSections[i].split('-');
+		  if (range.length === 2) {
+			for (var j = parseInt(range[0], 10); j <= range[1]; j++) {
+			  lineNumbers.push(j);
+			}
+		  } else if (range.length === 1) {
+			lineNumbers.push(parseInt(range[0], 10));
+		  }
+		}
+	}
     return lineNumbers;
   }
 
@@ -40,8 +46,8 @@
       file = $elem.data('gist-file');
       hideFooterOption = $elem.data('gist-hide-footer') === 'true';
       hideLineNumbersOption = $elem.data('gist-hide-line-numbers') === 'true';
-      lines = ($elem.data('gist-line') || '').replace(/ /g, '');
-      highlightLines = ($elem.data('gist-highlight-line') || '').replace(/ /g, '');
+      lines = $elem.data('gist-line');
+      highlightLines = $elem.data('gist-highlight-line');
 
       if (file) {
         data.file = file;
