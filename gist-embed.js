@@ -36,12 +36,12 @@
       // make block level so loading text shows properly
       $elem.css('display', 'block');
 
-      id = $elem.attr('data-gist-id') || '';
-      file = $elem.attr('data-gist-file');
-      hideFooterOption = $elem.attr('data-gist-hide-footer') === 'true';
-      hideLineNumbersOption = $elem.attr('data-gist-hide-line-numbers') === 'true';
-      lines = ($elem.attr('data-gist-line') || '').replace(/ /g, '');
-      highlightLines = ($elem.attr('data-gist-highlight-line') || '').replace(/ /g, '');
+      id = $elem.data('gist-id') || '';
+      file = $elem.data('gist-file');
+      hideFooterOption = $elem.data('gist-hide-footer') === 'true';
+      hideLineNumbersOption = $elem.data('gist-hide-line-numbers') === 'true';
+      lines = ($elem.data('gist-line') || '').replace(/ /g, '');
+      highlightLines = ($elem.data('gist-highlight-line') || '').replace(/ /g, '');
 
       if (file) {
         data.file = file;
