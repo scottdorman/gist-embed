@@ -4,18 +4,22 @@
 (function($) {
 
   function getLineNumbers(lineRangeString) {
-    var lineNumbers = [],
-      lineNumberSections = lineRangeString.split(','),
-      range;
+    var lineNumbers = [], range;
 
-    for (var i = 0; i < lineNumberSections.length; i++) {
-      range = lineNumberSections[i].split('-');
-      if (range.length === 2) {
-        for (var j = parseInt(range[0], 10); j <= range[1]; j++) {
-          lineNumbers.push(j);
+    if (typeof lineRangeString === 'number') {
+      lineNumbers.push(lineRangeString);
+    } else {
+      var lineNumberSections = lineRangeString.split(',');
+
+      for (var i = 0; i < lineNumberSections.length; i++) {
+        range = lineNumberSections[i].split('-');
+        if (range.length === 2) {
+          for (var j = parseInt(range[0], 10) ; j <= range[1]; j++) {
+            lineNumbers.push(j);
+          }
+        } else if (range.length === 1) {
+          lineNumbers.push(parseInt(range[0], 10));
         }
-      } else if (range.length === 1) {
-        lineNumbers.push(parseInt(range[0], 10));
       }
     }
     return lineNumbers;
@@ -36,12 +40,12 @@
       // make block level so loading text shows properly
       $elem.css('display', 'block');
 
-      id = $elem.attr('data-gist-id') || '';
-      file = $elem.attr('data-gist-file');
-      hideFooterOption = $elem.attr('data-gist-hide-footer') === 'true';
-      hideLineNumbersOption = $elem.attr('data-gist-hide-line-numbers') === 'true';
-      lines = ($elem.attr('data-gist-line') || '').replace(/ /g, '');
-      highlightLines = ($elem.attr('data-gist-highlight-line') || '').replace(/ /g, '');
+      id = $elem.data('gist-id') || '';
+      file = $elem.data('gist-file');
+      hideFooterOption = $elem.data('gist-hide-footer') === true;
+      hideLineNumbersOption = $elem.data('gist-hide-line-numbers') === true;
+      lines = $elem.data('gist-line');
+      highlightLines = $elem.data('gist-highlight-line');
 
       if (file) {
         data.file = file;
