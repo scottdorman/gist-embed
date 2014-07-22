@@ -1,20 +1,20 @@
 // author: Blair Vanderhoof
 // https://github.com/blairvanderhoof/gist-embed
-// version 1.8
+// version 1.9
 (function($) {
 
   function getLineNumbers(lineRangeString) {
-    var lineNumbers = [], range;
+    var lineNumbers = [], range, lineNumberSections;
 
     if (typeof lineRangeString === 'number') {
       lineNumbers.push(lineRangeString);
     } else {
-      var lineNumberSections = lineRangeString.split(',');
+      lineNumberSections = lineRangeString.split(',');
 
       for (var i = 0; i < lineNumberSections.length; i++) {
         range = lineNumberSections[i].split('-');
         if (range.length === 2) {
-          for (var j = parseInt(range[0], 10) ; j <= range[1]; j++) {
+          for (var j = parseInt(range[0], 10); j <= range[1]; j++) {
             lineNumbers.push(j);
           }
         } else if (range.length === 1) {
