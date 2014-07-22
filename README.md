@@ -37,6 +37,9 @@ See http://blairvanderhoof.com/gist-embed/ for all possible ways to use gist-emb
 
 ###Change log
 
+####Version 1.9 (July 21, 2014)
+* Merged #25 from scottdorman to use jQuery.data to parse data attributes instead of jQuery.attr.  This provides compatibility with knockout bindings.  Thanks scottdorman!
+
 ####Version 1.8 (June 16, 2014)
 * Merged #22 from miguelvps to expose gist-embed as a jQuery plugin. Now you can add new gist-embed elements after the page has loaded. Thanks miguelvps!
 
